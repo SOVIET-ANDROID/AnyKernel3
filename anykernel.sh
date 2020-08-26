@@ -52,6 +52,18 @@ if [ -d $ramdisk/.backup ]; then
 	chown -R root:root $ramdisk/overlay.d/sbin/init.soviet.sh
 fi;
 
+# Set display timing mode based on ZIP file name
+case "$ZIPFILE" in
+  *66fps*|*66hz*)
+    ui_print "  • Setting 66 Hz refresh rate"
+    patch_cmdline "msm_drm.timing_override" "msm_drm.timing_override=1"
+    ;;
+  *)
+    ui_print "  • Setting 60 Hz refresh rate"
+    patch_cmdline "msm_drm.timing_override" ""
+    ;;
+esac
+
 write_boot;
 ## end install
 
