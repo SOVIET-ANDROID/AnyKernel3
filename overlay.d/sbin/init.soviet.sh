@@ -1,4 +1,4 @@
-#!/system/bin/sh 
+#!/system/bin/sh
 
 sleep 30;
 
@@ -14,36 +14,19 @@ sleep 30;
 	echo 128 > /sys/block/sda/queue/read_ahead_kb
 	echo 128 > /sys/block/dm-0/queue/read_ahead_kb
 
-# Input boost and stune configuration
-	echo "0:1382400" > /sys/module/cpu_boost/parameters/input_boost_freq
-	echo 500 > /sys/module/cpu_boost/parameters/input_boost_ms
-
-# Set min cpu freq
-	echo 576000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-	echo 710400 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
-	echo 825600 > /sys/devices/system/cpu/cpu7/cpufreq/scaling_min_freq
-
-# configure governor settings for silver cluster
-	echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
-	echo 0 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/up_rate_limit_us
-	echo 0 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/down_rate_limit_us
-	echo 1209600 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/hispeed_freq
-	echo 576000 > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
-	echo 1 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/pl
-
 # configure governor settings for gold cluster
 	echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy4/scaling_governor
-	echo 0 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/up_rate_limit_us
-	echo 0 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/down_rate_limit_us
-	echo 1612800 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/hispeed_freq
-	echo 1 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/pl
+	echo 500 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/up_rate_limit_us
+	echo 20000 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/down_rate_limit_us
+	echo 0 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/hispeed_freq
+	echo 0 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/pl
 
 # configure governor settings for gold+ cluster
 	echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy7/scaling_governor
-	echo 0 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/up_rate_limit_us
-	echo 0 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/down_rate_limit_us
-	echo 1612800 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/hispeed_freq
-	echo 1 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/pl
+	echo 500 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/up_rate_limit_us
+	echo 20000 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/down_rate_limit_us
+	echo 0 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/hispeed_freq
+	echo 0 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/pl
 
 # Setup EAS cpusets values for better load balancing
 	echo 0-7 > /dev/cpuset/top-app/cpus
