@@ -7,7 +7,6 @@ properties() { '
 kernel.string=Soviet kernel NATO66613 @ xda-developers
 do.devicecheck=1
 do.modules=0
-do.systemless=1
 do.cleanup=1
 do.cleanuponabort=0
 device.name1=grus
@@ -16,9 +15,10 @@ supported.patchlevels=
 '; } # end properties
 
 # shell variables
-block=/dev/block/bootdevice/by-name/boot;
+block=/dev/block/platform/soc/1d84000.ufshc/by-name/boot;
 is_slot_device=0;
 ramdisk_compression=auto;
+no_block_display=true;
 
 ## AnyKernel methods (DO NOT CHANGE)
 # import patching functions/variables - see for reference
